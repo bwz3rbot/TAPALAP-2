@@ -4,6 +4,7 @@ const {
 const Snoolicious = require('../lib/Snoolicious');
 const snoolicious = new Snoolicious();
 const editor = snoolicious.getWikiEditor();
+const WikiEditor = require('./WikiEditor');
 
 const pages = new WikiPages();
 const pagelist = pages.list;

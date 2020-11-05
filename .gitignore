@@ -1,6 +1,6 @@
 *.env
 *.env.json
 /node_modules
-/src/data/saved.db
-/src/data/saved.db-shm
-/src/data/saved.db-wal
+/src/data/USER_REVIEWS_DIRECTORY.db
+/src/data/USER_REVIEWS_DIRECTORY.db-shm
+/src/data/USER_REVIEWS_DIRECTORY.db-wal

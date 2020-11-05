@@ -39,11 +39,11 @@ module.exports = class Command {
             - Strips the /u/username OR u/username if present
             - returns the rest of the string
          */
-    stripUlink(string = String) {
-        if (string.startsWith('/u/') || string.startsWith('u/')) {
-            return string.substring(string.indexOf(" ") + 1);
-        }
-    }
+    // stripUlink(string = String) {
+    //     if (string.startsWith('/u/') || string.startsWith('u/')) {
+    //         return string.substring(string.indexOf(" ") + 1);
+    //     }
+    // }
     /* 
         [Test]
             - Tests a string for first char = prefix
@@ -52,16 +52,13 @@ module.exports = class Command {
 
     */
     test(string) {
-        console.log(`testing this string: "${string}"`);
-
         let placeholder = new String(string);
-        try {
-            string = this.stripUlink(string);
-            string = string.trim();
-        } catch (err) {
-            string = placeholder;
-        }
-        console.log("checking command...");
+        // try {
+        //     string = this.stripUlink(string);
+        //     string = string.trim();
+        // } catch (err) {
+        //     string = placeholder;
+        // }
         const cmd = command(string);
         if (cmd) {
 

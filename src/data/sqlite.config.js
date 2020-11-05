@@ -18,21 +18,16 @@ class DB {
         this.DB = newDatabase('USER_REVIEWS_DIRECTORY');
         this.initReviewsTable();
 
-
-
         /* Check User Exists In Directory */
         this.checkUserExists = async function (username) {
             return this.DB.prepare(`SELECT username FROM directory WHERE username = ?`).get(username);
         }
-
+        
         /* Add User To Directory */
-
         /* Get All Users In Directory By Initial */
         this.getAllUsersByInitial = async function (initial) {
-            console.log("Running query on initial: ", initial);
             return this.DB.prepare(`SELECT * FROM directory WHERE initial = ?`).all(initial.toUpperCase());
         }
-
         this.saveReviewSTMT =
             this.DB.prepare(
                 `INSERT INTO directory (initial, username, rating, type, comments, permalink, ID) VALUES (@initial, @username, @rating, @type, @comments, @permalink, @ID)`);
@@ -40,7 +35,14 @@ class DB {
         /* Add Review To Reviews DB */
         this.saveReview = async function (initial, username, rating, type, comments, permalink) {
             console.log("saving this review:");
-            console.log({initial, username, rating, type, comments, permalink});
+            console.log({
+                initial,
+                username,
+                rating,
+                type,
+                comments,
+                permalink
+            });
             const ID = new Date().getTime();
             return this.saveReviewSTMT.run({
                 initial,
@@ -56,11 +58,8 @@ class DB {
         this.getUserReviews = async function (username) {
             return this.DB.prepare(`SELECT * FROM directory WHERE username = ?`).all(username);
         }
-
     }
-
     /* Initializers */
-
     /* Reviews Table */
     initReviewsTable() {
         const table = this.DB.prepare(
@@ -76,13 +75,9 @@ class DB {
         }
         this.DB.pragma("synchronous = 1");
         this.DB.pragma("journal_mode = wal");
-
     }
-
 }
-
 const db = new DB();
-
 module.exports = {
     db
 }

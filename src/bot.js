@@ -40,15 +40,16 @@ async function handleCommand(task) {
                 } catch (err) {
                     console.log("Replying with this error message!".red);
                     console.log(err.message);
-
-                    return snoolicious.requester.getComment(task.item.id).reply(`${err.message} Please refer to the ${USERDIR_LINK} to learn more about using this bot!`);
+                    await snoolicious.requester.getComment(task.item.id).reply(`${err.message}\nPlease refer to the ${USERDIR_LINK} to learn more about using this bot!`);
+                    console.log("saving...".grey);
+                    return snoolicious.requester.getComment(task.item.id).save();
                 }
                 await db.saveReview(username[0].toUpperCase(), username, stars, interactionType, notes, task.item.permalink);
                 await editWikiPage(username[0], snoolicious.requester);
                 const linkreply = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/${username[0].toLowerCase()}#wiki_${username.toLowerCase()}`, `trade history`);
 
                 console.log("replying with success message...".green)
-                await snoolicious.requester.getComment(task.item.id).reply(`Go see u/${username}'s ${linkreply} in the ${USERDIR_LINK}!`);
+                await snoolicious.requester.getComment(task.item.id).reply(`${process.env.SUCCESS_REPLY_MESSAGE}\nGo see u/${username}'s ${linkreply} in the ${USERDIR_LINK}!`);
 
                 break;
             case 'help':

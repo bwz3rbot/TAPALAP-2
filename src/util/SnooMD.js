@@ -108,7 +108,6 @@ module.exports = class Markdown {
         return `\`\`\`\n${str}\n\`\`\``;
     }
     table = function (headers, rows) {
-        console.log("MAKING A NEW TABLE!");
         return new Table(headers, rows).build();
     }
 }

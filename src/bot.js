@@ -14,7 +14,11 @@ const snoolicious = new Snoolicious();
 const USERDIR_LINK = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/`, `User Directory`);
 
 async function handleCommand(task) {
-    console.log({command:task.command,fromUser:task.item.author.name, time: (new Date())});
+    console.log({
+        command: task.command,
+        fromUser: task.item.author.name,
+        time: (new Date())
+    });
     const isSaved = await snoolicious.requester.getComment(task.item).saved;
     // Check if the item was saved first.
     if (!isSaved) {
@@ -68,19 +72,21 @@ async function handleCommand(task) {
 const INTERVAL = (process.env.INTERVAL * 1000 * 60);
 console.log("S - N - O - O - L - I - C - I - O - U - S".random);
 async function run() {
-        await snoolicious.getCommands(1);
-        console.log("APP CHECKING SIZE OF TASKS QUEUE: ".america, snoolicious.tasks.size());
-        await snoolicious.queryTasks(handleCommand, null);
-        console.log(`Finished Quereying Tasks. Sleeping for ${INTERVAL/1000/60} minutes...`.grey);
-        setTimeout(async () => {
-            await run()
-        }, (INTERVAL));
-    }
-    (async () => {
-        await run();
-    })();
+    await snoolicious.getCommands(1);
+    console.log("APP CHECKING SIZE OF TASKS QUEUE: ".america, snoolicious.tasks.size());
+    await snoolicious.queryTasks(handleCommand, null);
+    console.log(`Finished Quereying Tasks. Sleeping for ${INTERVAL/1000/60} minutes...`.grey);
+    setTimeout(async () => {
+        await run()
+    }, (INTERVAL));
+}
+
+(async () => {
+    await run();
+})();
 
 
+/* Strip Slashes from Username */
 const stripSlashesFromUsername = function (username) {
     if (username.startsWith('u/')) {
         return username.replace('u/', '');
@@ -99,6 +105,7 @@ const validateUsername = function (username) {
     }
 }
 
+/* Validate actually a user */
 async function validateIsActualUser(username) {
     let user;
     try {
@@ -111,6 +118,7 @@ async function validateIsActualUser(username) {
     username = user.name;
     return username;
 }
+
 /* Validate Rating */
 const validateRating = function (number) {
     if (number[0] == '\\' || number[0] == '-') {
@@ -125,7 +133,8 @@ const validateRating = function (number) {
     }
     return number;
 }
-/* Validate Interaction */
+
+/* Validate Interaction Type */
 const validateInteraction = function (type) {
     if (type &&
         (type.toLowerCase() != "sale" &&
@@ -135,7 +144,6 @@ const validateInteraction = function (type) {
         interactionType = type;
         throw new Error(message = "Check your interaction type argument!");
     }
-
     // If command was not given with an interaction type, default it to "sale"
     if (!type) {
         type = "sale";

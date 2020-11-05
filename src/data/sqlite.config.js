@@ -22,7 +22,7 @@ class DB {
         this.checkUserExists = async function (username) {
             return this.DB.prepare(`SELECT username FROM directory WHERE username = ?`).get(username);
         }
-        
+
         /* Add User To Directory */
         /* Get All Users In Directory By Initial */
         this.getAllUsersByInitial = async function (initial) {
@@ -34,15 +34,6 @@ class DB {
 
         /* Add Review To Reviews DB */
         this.saveReview = async function (initial, username, rating, type, comments, permalink) {
-            console.log("saving this review:");
-            console.log({
-                initial,
-                username,
-                rating,
-                type,
-                comments,
-                permalink
-            });
             const ID = new Date().getTime();
             return this.saveReviewSTMT.run({
                 initial,

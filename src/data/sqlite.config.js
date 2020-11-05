@@ -7,8 +7,7 @@ const Database = require('better-sqlite3');
 function newDatabase(name) {
     return new Database(`${__dirname}/${name}.db`, {
         fileMustExist: false,
-        timeout: 7000,
-        verbose: console.log
+        timeout: 7000
     });
 }
 

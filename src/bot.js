@@ -62,7 +62,7 @@ async function handleCommand(task) {
         console.log("saving...".green);
         await snoolicious.requester.getComment(task.item.id).save();
     } else {
-        console.log("Item was already saved!".red);
+        console.log("Item was already saved!".grey);
     }
     console.log("Size of the queue: ", snoolicious.tasks.size());
 
@@ -73,9 +73,8 @@ const INTERVAL = (process.env.INTERVAL * 1000 * 60);
 console.log("S - N - O - O - L - I - C - I - O - U - S".random);
 async function run() {
     await snoolicious.getCommands(1);
-    console.log("APP CHECKING SIZE OF TASKS QUEUE: ".america, snoolicious.tasks.size());
     await snoolicious.queryTasks(handleCommand, null);
-    console.log(`Finished Quereying Tasks. Sleeping for ${INTERVAL/1000/60} minutes...`.grey);
+    console.log(`finished quereying tasks. sleeping for ${INTERVAL/1000/60} minutes...`.grey);
     setTimeout(async () => {
         await run()
     }, (INTERVAL));

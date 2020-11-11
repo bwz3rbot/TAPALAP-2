@@ -34,7 +34,7 @@ class Table {
             center: ":-:"
         }
     }
-    build = function () {
+    build() {
         // Headers
         let h = "|";
         this.headers.forEach(header => {

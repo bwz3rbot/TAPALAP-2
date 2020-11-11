@@ -25,6 +25,8 @@ module.exports = class CommandBot {
     async getCommands() {
         if (!firstUTCAssigned) {
             firstUTCAssigned = true;
+            console.log(
+                `getting thread with id: (${this.threadId})`.grey);
             return this.assignFirst();
         } else {
             return this.checkAgain();

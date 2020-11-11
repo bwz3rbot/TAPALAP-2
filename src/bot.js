@@ -11,7 +11,7 @@ const {
     editWikiPage
 } = require('./wiki/WikiEditor');
 const snoolicious = new Snoolicious();
-const USERDIR_LINK = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/`, `User Directory`);
+const USERDIR_LINK = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/`, ` Greenhouse🌿`);
 
 async function handleCommand(task) {
     console.log({
@@ -44,12 +44,14 @@ async function handleCommand(task) {
                     console.log("saving...".grey);
                     return snoolicious.requester.getComment(task.item.id).save();
                 }
+                console.log("saving user review...".grey);
                 await db.saveReview(username[0].toUpperCase(), username, stars, interactionType, notes, task.item.permalink);
+                console.log("editing wiki page...".grey);
                 await editWikiPage(username[0], snoolicious.requester);
-                const linkreply = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/${username[0].toLowerCase()}#wiki_${username.toLowerCase()}`, `trade history`);
+                const linkreply = snoolicious.wikieditor.md.link(`http://www.reddit.com/r/${process.env.MASTER_SUB}/wiki/userdirectory/${username[0].toLowerCase()}#wiki_${username.toLowerCase()}`, `Greenhouse🌿`);
 
                 console.log("replying with success message...".green)
-                await snoolicious.requester.getComment(task.item.id).reply(`${process.env.SUCCESS_REPLY_MESSAGE}\nGo see u/${username}'s ${linkreply} in the ${USERDIR_LINK}!`);
+                await snoolicious.requester.getComment(task.item.id).reply(`${process.env.SUCCESS_REPLY_MESSAGE}\nGo see u/${username}'s trade history in our ${linkreply}.`);
 
                 break;
             case 'help':

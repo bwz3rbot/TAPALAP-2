@@ -72,13 +72,13 @@ module.exports = class Markdown {
         this.spoilers = ">!";
         this.codeblock = "\`";
     }
-    apply = function (str, md) {
+    apply(str, md) {
         return md + str + md.split("").reverse().join("");
     }
-    superscript = function (str) {
+    superscript(str) {
         return `^(${str})`;
     }
-    link = function (url,t) {
+    link(url,t) {
         let u;
         url.includes('"') ?
             u = url.replace(/\"/g, '\\"') : u = url;
@@ -86,28 +86,28 @@ module.exports = class Markdown {
             `[${url}](${u})` :
             `[${t}](${u})`;
     }
-    h1 = function (str) {
+    h1(str) {
         return `#${str}`;
     }
-    h2 = function (str) {
+    h2(str) {
         return `##${str}`;
     }
-    h3 = function (str) {
+    h3(str) {
         return `###${str}`;
     }
-    ul = function (str) {
+    ul(str) {
         return `- ${str}`;
     }
-    ol = function (str, n) {
+    ol(str, n) {
         return `  ${n}. ${str}`;
     }
-    blockquote = function (str) {
+    blockquote(str) {
         return `> ${str}`;
     }
-    fence = function (str) {
+    fence(str) {
         return `\`\`\`\n${str}\n\`\`\``;
     }
-    table = function (headers, rows) {
+    table(headers, rows) {
         return new Table(headers, rows).build();
     }
 }

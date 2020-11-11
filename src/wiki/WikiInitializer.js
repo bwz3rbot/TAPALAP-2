@@ -78,13 +78,21 @@ async function generateIndex() {
         md.apply(`!rate u/bwz3r 5 stars sale We had a great interaction! I'm rating u/bwz3r 5 stars!`, md.codeblock) + "\n\n" +
         `This command will be processed by the bot and will find u/bwz3r within the database. If the user does not exist within the database, the user will be added to the list of reviewed users and will retain the rating given along with any comments, and a link to the command comment. Any future ratings received by this user will be added to their file and any changes made will be instantly updated in the user directory under their alphabetized page. Users scores will be averaged according to number of reviews / scores rounded down. Stars will be awarded each user according to their calculated average rating. Any questions or errors found while using the bot can be submitted to u/bwz3r. Thank you for reading!`
 
-    let fullmsg = welcome + introduction + "\n\n" + directory + "\n\n" + howToUse
+    let fullmsg = welcome + introduction + "\n\n" + directory + "\n\n" + howToUse;
 
     console.log(`Generating about page: r/${process.env.MASTER_SUB}/wiki/${pages.category}`);
-    await requester.getSubreddit(process.env.MASTER_SUB).getWikiPage(`${pages.category}`).edit({
-        text: fullmsg,
-        reason: "Automatically generated about page."
-    });
+    console.log(`Getting subreddit: "${process.env.MASTER_SUB}" Creating page: ${pages.category}`);
+    try {
+        await requester.getSubreddit(process.env.MASTER_SUB).getWikiPage(`${pages.category}`).edit({
+            text: fullmsg,
+            reason: "Automatically generated about page."
+        });
+    } catch (err) {
+        if (err) {
+            console.log(err);
+            process.exit();
+        }
+    }
 }
 
 async function generatePage(page) {

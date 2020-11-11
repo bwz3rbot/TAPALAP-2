@@ -72,12 +72,12 @@ async function handleCommand(task) {
 }
 
 /* [Snoolicious Run Cycle] */
-const INTERVAL = (process.env.INTERVAL * 1000 * 60);
+const INTERVAL = (process.env.INTERVAL * 1000);
 console.log("S - N - O - O - L - I - C - I - O - U - S".random);
 async function run() {
     await snoolicious.getCommands(1);
     await snoolicious.queryTasks(handleCommand, null);
-    console.log(`finished quereying tasks. sleeping for ${INTERVAL/1000/60} minutes...`.grey);
+    console.log(`finished quereying tasks. sleeping for ${INTERVAL/1000} seconds...`.grey);
     setTimeout(async () => {
         await run()
     }, (INTERVAL));

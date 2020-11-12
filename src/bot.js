@@ -52,11 +52,19 @@ async function handleCommand(task) {
 
                 console.log("replying with success message...".green)
                 await snoolicious.requester.getComment(task.item.id).reply(`${process.env.SUCCESS_REPLY_MESSAGE}\nGo see u/${username}'s trade history in our ${linkreply}.`);
-
                 break;
             case 'help':
                 console.log("Sending help!".green);
                 await snoolicious.requester.getComment(task.item.id).reply(`See the ${USERDIR_LINK} for instructions on how to use this bot.`)
+                break;
+            case 'update':
+                console.log(`command was update is user named: "${process.env.ADMIN}".`);
+                if (task.item.author.name != process.env.ADMIN) {
+                    console.log(`user not authorized! user was: "${task.item.author.name}".`);
+                    return;
+                }
+                console.log('EDITING WIKI PAGE: ', task.command.args[0]);
+                await editWikiPage(task.command.args[0], snoolicious.requester);
                 break;
             default:
                 console.log("Command was not understood! the command: ".red, task.command);

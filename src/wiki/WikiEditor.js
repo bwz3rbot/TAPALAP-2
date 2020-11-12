@@ -44,16 +44,15 @@ async function editWikiPage(page, requester) {
     const AllTables = [];
 
     let prev = "";
-
-
     const LIMITED_USERS = [];
-    users.forEach(user => {
-        if (user.username != prev) {
-            LIMITED_USERS.push(user);
+    for(var i = 0; i < users.length; i++){
+        if (users[i].username != prev) {
+            LIMITED_USERS.push(users[i]);
+            prev = users[i].username;
         }
-        prev = user.username;
+        
+    }
 
-    });
 
     for (const user of LIMITED_USERS) {
         // Format Username

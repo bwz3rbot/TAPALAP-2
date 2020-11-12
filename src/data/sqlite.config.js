@@ -26,7 +26,7 @@ class DB {
         /* Add User To Directory */
         /* Get All Users In Directory By Initial */
         this.getAllUsersByInitial = async function (initial) {
-            return this.DB.prepare(`SELECT * FROM directory WHERE initial = ?`).all(initial.toUpperCase());
+            return this.DB.prepare(`SELECT * FROM directory WHERE initial = ? ORDER BY username ASC`).all(initial.toUpperCase());
         }
         this.saveReviewSTMT =
             this.DB.prepare(
